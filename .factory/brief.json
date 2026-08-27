@@ -1,0 +1,11 @@
+{
+  "slug": "boardgame-session-notes",
+  "title": "Boardgame Session Notes",
+  "territory": "games-creative",
+  "user": "A game group that wants a compact record of a particular play—starting state, disputes, house rules, score laps, and outcomes—without losing it when an item leaves the collection.",
+  "smallest_useful_product": "Offline session template with participants, pre-play state/photo, reusable house-rule snippets, event timeline, and final score; export a single Markdown/PDF receipt.",
+  "non_goals": ["rules lookup", "automated scoring", "BoardGameGeek import", "campaign management"],
+  "artifact_class": "pwa-offline",
+  "monetization": "one-time",
+  "constraints": "Do not distribute rule text, game art, or community data; keep notes local by default and make exports user-controlled."
+}
