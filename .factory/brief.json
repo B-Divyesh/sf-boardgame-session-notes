@@ -3,9 +3,29 @@
   "title": "Boardgame Session Notes",
   "territory": "games-creative",
   "user": "A game group that wants a compact record of a particular play—starting state, disputes, house rules, score laps, and outcomes—without losing it when an item leaves the collection.",
+  "evidence": [
+    {
+      "url": "https://github.com/Progrunning/BoardGamesCompanion/issues/347",
+      "date": "2026-08-06",
+      "quote_or_summary": "A current BoardGamesCompanion task preserves import progress/retry/backoff because users otherwise have to babysit a queued BoardGameGeek collection import."
+    },
+    {
+      "url": "https://boardgames.stackexchange.com/questions/61701/how-to-count-matadors-in-skat-if-you-dont-have-a-good-memory",
+      "date": "2025-01-07",
+      "quote_or_summary": "A Skat player asks how to reconstruct an initial hand after tricks are collected because the information is lost and nobody can reliably remember it."
+    }
+  ],
+  "recurrence": "These two independent reports show that catalog history and in-session state are both fragile: import pipelines are unreliable, while physical information disappears after play. Severity is medium for groups that revisit games or settle disputes.",
+  "current_workaround": "Trust memory, keep paper notes, or rely on a remote collection import to be available at the table.",
+  "incumbents_and_gap": "BoardGameGeek/BG Stats retain broad play logs; rulebook apps explain rules. Neither offers a local, game-agnostic session notebook that starts from a pasted title and survives catalog deletion or API outages.",
   "smallest_useful_product": "Offline session template with participants, pre-play state/photo, reusable house-rule snippets, event timeline, and final score; export a single Markdown/PDF receipt.",
   "non_goals": ["rules lookup", "automated scoring", "BoardGameGeek import", "campaign management"],
   "artifact_class": "pwa-offline",
   "monetization": "one-time",
-  "constraints": "Do not distribute rule text, game art, or community data; keep notes local by default and make exports user-controlled."
+  "constraints": "Do not distribute rule text, game art, or community data; keep notes local by default and make exports user-controlled.",
+  "success_measure": "In 15 repeat groups, at least 10 reopen a prior session note during a subsequent play or rules discussion within six weeks.",
+  "est_build_effort": "S",
+  "why_distinct": "It protects ephemeral session context, not another online collection or rules encyclopedia.",
+  "confidence": 3,
+  "state": "RESEARCHED"
 }

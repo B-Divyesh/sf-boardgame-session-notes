@@ -51,7 +51,7 @@ main { display: block; min-height: calc(100vh - 210px); }
 .hero { max-width: 1180px; margin: 16px auto 72px; display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: clamp(32px, 6vw, 88px); padding: 32px; }
 .hero-copy { position: relative; z-index: 1; }
 .eyebrow { margin-bottom: 14px; text-transform: uppercase; letter-spacing: .13em; font-weight: 750; font-size: 12px; color: var(--muted); }
-.hero .eyebrow, .unlock-panel .eyebrow, .legal .eyebrow, .error-state .eyebrow { color: #d2d9d6; }
+.hero .eyebrow, .unlock-panel .eyebrow, .error-state .eyebrow { color: #d2d9d6; }
 .eyebrow span { display: inline-block; width: 22px; height: 2px; margin: 0 9px 3px 0; background: var(--accent); }
 .hero h2 { margin: 0 0 24px; font-size: clamp(42px, 5.2vw, 72px); line-height: .98; color: var(--white); font-weight: 500; }
 .hero h2 em { color: var(--highlight); font-weight: 500; }

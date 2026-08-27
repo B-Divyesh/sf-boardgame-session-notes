@@ -2,6 +2,9 @@ import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 test('creates and reopens a complete local session', async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on('console', (message) => { if (message.type() === 'error') consoleErrors.push(message.text()); });
+  page.on('pageerror', (error) => consoleErrors.push(error.message));
   await page.goto('/');
   await page.getByRole('button', { name: 'Start a session note' }).click();
   await page.getByLabel('Game title').fill('River Council');
@@ -18,12 +21,16 @@ test('creates and reopens a complete local session', async ({ page }) => {
   await page.getByRole('button', { name: /River Council/ }).click();
   await expect(page.getByLabel('Game title')).toHaveValue('River Council');
   await expect(page.getByRole('button', { name: 'Marked complete' })).toBeVisible();
+  expect(consoleErrors).toEqual([]);
 });
 
 test('has no serious accessibility violations', async ({ page }) => {
   await page.goto('/');
-  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
-  expect(results.violations.filter((item) => ['serious', 'critical'].includes(item.impact ?? ''))).toEqual([]);
+  for (const action of [async () => {}, async () => page.getByRole('button', { name: 'Start a session note' }).click(), async () => page.goto('/privacy/')]) {
+    await action();
+    const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
+    expect(results.violations.filter((item) => ['serious', 'critical'].includes(item.impact ?? ''))).toEqual([]);
+  }
 });
 
 test('reopens after the network goes offline', async ({ page, context }) => {
