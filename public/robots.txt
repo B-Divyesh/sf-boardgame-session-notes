@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://boardgame-session-notes.sociobot.in/sitemap.xml

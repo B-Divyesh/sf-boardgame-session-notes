@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#132d2a" />
+    <meta name="description" content="Keep private, durable notes for every boardgame session—even offline." />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <title>Boardgame Session Notes — offline game-night records</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to session notes</a>
+    <header class="site-header">
+      <a class="wordmark" href="/" data-route aria-label="Boardgame Session Notes home">
+        <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span><b>Boardgame</b> <em>Session Notes</em></span>
+      </a>
+      <div class="header-meta">
+        <span id="connection-status" class="connection" aria-live="polite">Checking connection…</span>
+        <button id="install-app" class="text-button" type="button" hidden>Install app</button>
+      </div>
+    </header>
+    <h1 class="sr-only">Boardgame Session Notes</h1>
+    <main id="main" tabindex="-1"></main>
+    <footer class="site-footer">
+      <p>Private by default. Your notes stay on this device.</p>
+      <nav aria-label="Legal and product links">
+        <a href="/privacy/" data-route>Privacy</a>
+        <a href="/terms/" data-route>Terms</a>
+        <button id="open-data-tools" class="link-button" type="button">Data tools</button>
+      </nav>
+      <p class="generated-note">Original generated illustration · no game art or rule text</p>
+    </footer>
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
