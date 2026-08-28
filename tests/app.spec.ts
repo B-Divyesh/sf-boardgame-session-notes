@@ -146,6 +146,8 @@ test('supports real routes, metadata, responsive layout, and accessibility', asy
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
     expect(results.violations.filter((item) => ['serious', 'critical'].includes(item.impact ?? ''))).toEqual([]);
   }
+  await page.goto('/demo');
+  await expect(page).toHaveTitle('Demo — Boardgame Session Notes');
   await page.goto('/privacy/');
   await expect(page).toHaveTitle('Privacy — Boardgame Session Notes');
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/privacy$/);
