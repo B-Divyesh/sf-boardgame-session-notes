@@ -47,6 +47,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .site-nav { margin-left: auto; display: flex; gap: 16px; font-size: 14px; }
 .site-nav a { color: #e0e7e2; text-underline-offset: 4px; }
 .demo-banner { max-width: 1180px; margin: 0 auto; min-height: 48px; padding: 8px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--highlight); color: var(--ink); font-size: 14px; font-weight: 800; }
+.demo-banner[hidden] { display: none; }
 .demo-banner span:last-child { display: flex; flex-wrap: wrap; gap: 12px; }
 .demo-banner button { min-height: 36px; border: 1px solid var(--ink); padding: 5px 10px; background: transparent; color: var(--ink); font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .connection { color: #c8d4cf; font-size: 13px; display: inline-flex; align-items: center; gap: 7px; }

@@ -1,24 +1,33 @@
-# Review-1 handoff — Boardgame Session Notes
+# Polish 1 handoff
 
-## Result
+## Delivered
 
-Completed the requested adversarial first-read review without changing product code. The review is **FAIL** and is recorded in [review-1.md](review-1.md).
+- Real demo at /demo and ?demo=1 with a filled Lantern Harbor session note, an isolated demo:boardgame-session-notes database, Reset demo, and Start for real.
+- Plain-language first screen, consistent session-note terminology, 11 tested claims, routes for demo, privacy, terms, and a product-styled 404.
+- Route titles, descriptions, canonical/OG/Twitter metadata, navigation, footer build information, service-worker precache, host response policy, and a corrected 512px maskable icon.
+- A 1200 × 630 social preview derived from the recorded original illustration.
+- The dead checkout action is not rendered while the configured product checkout returns no usable route. License restore remains available for a valid existing license; this prevents a dead link.
 
-## Verified
+## Verification
 
-```sh
-npm ci
-npm test          # 7/7 passed
-npm run build     # passed; dist/ produced
-npm run test:e2e  # 8/8 passed
-```
+Fresh clone at commit 4e19c5f766c04881e135dcecad1492d5f2ded412:
 
-The live site was opened in fresh 390px and desktop Chromium contexts. Normal unlicensed initial requests were same-origin only and there were no ordinary console errors. The product has a distinct visual identity and the existing core browser tests pass.
+- npm ci: passed, 0 vulnerabilities.
+- npm test: 7 passed.
+- npm run build: passed; dist includes index, demo, privacy, terms, 404, service worker, manifest, sitemap, and staticwebapp.config.json.
+- npm run test:e2e: 24 passed across 1440px desktop and 390px mobile.
+- Every command in .factory/claims.json: passed individually (11 commands, each in both browser projects).
+- Playwright axe scans: zero serious or critical violations on home, demo, privacy, terms, and 404.
+- The browser suite covers keyboard focus, mobile width, real route titles/canonical metadata, demo isolation, backup merge, request privacy, offline reload, text and print exports, and no-console normal flows.
 
-## Review outcome and remaining work
+Evidence screenshots:
 
-The product is not ready for acceptance. Its first-screen action is not a sample demo; `/demo` and `?demo=1` use the ordinary empty archive and its real IndexedDB namespace, with no banner/reset/start-real controls. The required `.factory/claims.json` and tagged claim tests are absent. The purchase link returns HTTP 404. The review also records first-screen/copy defects, routing and metadata gaps, incomplete navigation/footer, and the three still-unfixed historical findings: draft notes consume the advertised complete-note limit, asset cache/MIME policy remains short/incorrect, and maskable icon dimensions do not match the manifest.
+- .factory/evidence/home-390.png
+- .factory/evidence/demo-390.png
+- .factory/evidence/404-desktop.png
 
-## How to inspect
+Initial built payload: 35,657 bytes JavaScript, 19,200 bytes CSS, 29,486 bytes mobile AVIF hero, and 96,236 bytes social preview.
 
-Read `.factory/review-1.md`; it contains exact quotes, observed live behavior, the complete landing/README copy audit with word counts and rewrites, claim test requirements, historical checks, and concrete fixes.
+## Deploy and final live check
+
+Commit and deployment result are added below after the static work-order deploy completes.
