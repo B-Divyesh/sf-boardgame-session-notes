@@ -54,3 +54,5 @@ One wide hero illustration depicts an abstract session record assembling itself 
 - **Negative list:** no text, no watermark, no logos, no recognizable branded game, no cards with faces or suits, no people/hands, no dice pips that imply a game outcome, no glossy plastic, no neon gradients
 
 Generated with the factory image model (`factory-image`, Azure OpenAI image generation) on 2026-08-27. The final prompt is stored at `assets/src/session-map.json`; source PNG is retained at `assets/src/session-map.png`. Generated imagery is original to this product and disclosed in the footer.
+
+The social preview is a hand-cropped 1200 × 630 WebP derivative of that same generated image at `public/assets/social-preview.webp`; it adds no third-party material.

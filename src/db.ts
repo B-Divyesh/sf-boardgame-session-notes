@@ -1,17 +1,43 @@
 import type { AppBackup, GameSession } from './types';
 import { isAppBackup, isGameSession } from './types';
 
-const DB_NAME = 'boardgame-session-notes';
+const REAL_DB_NAME = 'boardgame-session-notes';
 const VERSION = 1;
 const SESSIONS = 'sessions';
 const SETTINGS = 'settings';
 
 let database: Promise<IDBDatabase> | undefined;
+let databaseName = REAL_DB_NAME;
+
+/** Selects the isolated database before the application opens it. */
+export function setStorageNamespace(demo: boolean): void {
+  const nextName = demo ? `demo:${REAL_DB_NAME}` : REAL_DB_NAME;
+  if (databaseName !== nextName) {
+    database?.then((db) => db.close());
+    database = undefined;
+    databaseName = nextName;
+  }
+}
+
+export function storageDatabaseName(): string {
+  return databaseName;
+}
+
+export async function clearCurrentStorage(): Promise<void> {
+  if (database) (await database).close();
+  database = undefined;
+  await new Promise<void>((resolve, reject) => {
+    const request = indexedDB.deleteDatabase(databaseName);
+    request.onsuccess = () => resolve();
+    request.onerror = () => reject(request.error ?? new Error('Could not reset the demo.'));
+    request.onblocked = () => reject(new Error('Close other tabs to reset the demo.'));
+  });
+}
 
 function openDatabase(): Promise<IDBDatabase> {
   if (database) return database;
   database = new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, VERSION);
+    const request = indexedDB.open(databaseName, VERSION);
     request.onupgradeneeded = () => {
       const db = request.result;
       const sessions = db.createObjectStore(SESSIONS, { keyPath: 'id' });

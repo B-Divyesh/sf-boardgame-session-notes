@@ -1,9 +1,9 @@
 {
   "name": "Boardgame Session Notes",
   "short_name": "Session Notes",
-  "description": "Private, offline records of boardgame sessions.",
+  "description": "Record one boardgame session in this browser.",
   "id": "/",
-  "start_url": "/?source=pwa&v=1",
+  "start_url": "/?source=pwa&v=2",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",

@@ -44,6 +44,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .mark i:nth-child(2) { height: 18px; background: var(--highlight); }
 .mark i:nth-child(3) { height: 13px; }
 .header-meta { display: flex; gap: 12px; align-items: center; }
+.site-nav { margin-left: auto; display: flex; gap: 16px; font-size: 14px; }
+.site-nav a { color: #e0e7e2; text-underline-offset: 4px; }
+.demo-banner { max-width: 1180px; margin: 0 auto; min-height: 48px; padding: 8px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--highlight); color: var(--ink); font-size: 14px; font-weight: 800; }
+.demo-banner span:last-child { display: flex; flex-wrap: wrap; gap: 12px; }
+.demo-banner button { min-height: 36px; border: 1px solid var(--ink); padding: 5px 10px; background: transparent; color: var(--ink); font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .connection { color: #c8d4cf; font-size: 13px; display: inline-flex; align-items: center; gap: 7px; }
 .connection::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #75c6a8; box-shadow: 0 0 0 3px rgb(117 198 168 / 14%); }
 .connection.is-offline::before { background: var(--highlight); box-shadow: none; }
@@ -54,8 +59,7 @@ main { display: block; min-height: calc(100vh - 210px); }
 .eyebrow { margin-bottom: 14px; text-transform: uppercase; letter-spacing: .13em; font-weight: 750; font-size: 12px; color: var(--muted); }
 .hero .eyebrow, .unlock-panel .eyebrow, .error-state .eyebrow { color: #d2d9d6; }
 .eyebrow span { display: inline-block; width: 22px; height: 2px; margin: 0 9px 3px 0; background: var(--accent); }
-.hero h2 { margin: 0 0 24px; font-size: clamp(42px, 5.2vw, 72px); line-height: .98; color: var(--white); font-weight: 500; }
-.hero h2 em { color: var(--highlight); font-weight: 500; }
+.hero h1 { margin: 0 0 24px; font: 500 clamp(42px, 5.2vw, 72px)/.98 Georgia, Cambria, "Times New Roman", serif; letter-spacing: -.025em; color: var(--white); }
 .hero-copy > p:not(.eyebrow) { max-width: 510px; color: #d2d9d6; font-size: 18px; line-height: 1.6; }
 .primary-action, .secondary-action, .file-action { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 8px; border: 1px solid transparent; padding: 11px 19px; font-weight: 750; text-decoration: none; cursor: pointer; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
 .primary-action { background: var(--accent); color: var(--ink); box-shadow: 5px 5px 0 var(--felt-deep); }
@@ -64,6 +68,11 @@ main { display: block; min-height: calc(100vh - 210px); }
 .secondary-action, .file-action { background: transparent; border-color: #7a827e; color: var(--ink); }
 .secondary-action:hover, .file-action:hover { background: rgb(23 33 31 / 7%); border-color: var(--ink); }
 .hero .primary-action { margin-top: 12px; }
+.hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 20px; }
+.hero-actions .primary-action { margin: 0; }
+.hero-actions span, .plain-facts { color: #d2d9d6; font-size: 14px; }
+.plain-facts { margin: 22px 0 0 !important; line-height: 1.8; }
+.start-real-button { margin-top: 12px; color: #e0e7e2; font-size: 14px; }
 .hero-art { position: relative; margin: 0; filter: drop-shadow(0 24px 24px rgb(3 17 15 / 30%)); }
 .hero-art::before { content: ''; position: absolute; inset: -13px 26px 13px -13px; border: 1px solid rgb(242 190 75 / 55%); transform: rotate(1.4deg); z-index: -1; }
 .hero-art img { width: 100%; aspect-ratio: 3/2; object-fit: cover; clip-path: polygon(3% 0, 100% 0, 100% 91%, 94% 100%, 0 100%, 0 7%); }
@@ -117,6 +126,7 @@ label, legend { display: grid; gap: 6px; color: #3f4945; font-size: 14px; font-w
 .note-heading > div { flex: 1; }
 .note-heading label { text-transform: uppercase; letter-spacing: .1em; font-size: 11px; }
 .note-heading input { min-height: 68px; padding: 0; border: 0; border-bottom: 2px solid var(--ink); background: transparent; font: 500 clamp(34px, 5vw, 58px)/1.08 Georgia, serif; }
+.note-heading h1 { margin: 0 0 24px; font: 500 clamp(30px, 4vw, 48px)/1.08 Georgia, serif; letter-spacing: -.025em; }
 .note-heading input:focus { outline-offset: 7px; }
 .note-heading p:last-child { margin: 7px 0 0; color: var(--muted); font-size: 13px; }
 .status-stamp { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 8px 14px; border: 2px solid var(--warning); background: transparent; color: #674611; font-weight: 800; transform: rotate(-1.5deg); cursor: pointer; }
@@ -193,7 +203,8 @@ dialog::backdrop { background: rgb(5 23 21 / 78%); backdrop-filter: blur(3px); }
 .legal { max-width: 780px; margin: 50px auto 90px; padding: 64px clamp(24px, 7vw, 82px); background: var(--paper); color: var(--ink); clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%); }
 .legal > .text-button { display: inline-flex; margin: -10px 0 48px; color: #294e46; }
 .legal h2 { font-size: clamp(40px, 7vw, 64px); line-height: 1; }
-.legal h3 { margin-top: 38px; font-size: 24px; }
+.legal h1 { margin: 0; font: 500 clamp(40px, 7vw, 64px)/1 Georgia, serif; letter-spacing: -.025em; }
+.legal h2 { margin-top: 38px; font-size: 24px; }
 .legal .lede { font-size: 20px; color: #37433f; }
 .legal p { max-width: 68ch; }
 .legal-date { margin-top: 50px; color: var(--muted); font-size: 13px; }
@@ -203,6 +214,8 @@ dialog::backdrop { background: rgb(5 23 21 / 78%); backdrop-filter: blur(3px); }
 @media (max-width: 820px) {
   .site-header { padding: 12px 20px; }
   .wordmark em { display: none; }
+  .site-nav { gap: 10px; }
+  .demo-banner { padding-inline: 20px; }
   .connection { font-size: 0; }
   .connection::after { content: 'Local'; font-size: 12px; }
   .hero { grid-template-columns: 1fr; margin-top: 0; padding: 36px 20px 24px; }
@@ -233,7 +246,10 @@ dialog::backdrop { background: rgb(5 23 21 / 78%); backdrop-filter: blur(3px); }
 }
 
 @media (max-width: 520px) {
-  .hero h2 { font-size: 42px; }
+  .hero h1 { font-size: 42px; }
+  .site-header { gap: 12px; }
+  .site-nav { font-size: 13px; }
+  .demo-banner { align-items: flex-start; flex-direction: column; }
   .hero-art figcaption { position: static; margin: -2px 8px 0 auto; width: max-content; }
   .section-heading h2 { font-size: 34px; }
   .participant-row { grid-template-columns: 30px 1fr 44px; }

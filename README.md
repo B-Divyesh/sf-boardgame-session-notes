@@ -1,54 +1,34 @@
 # Boardgame Session Notes
 
-Boardgame Session Notes is a private, offline-first notebook for one specific play: the starting state, players, house rules, disputes, score changes, setup photo, final scores, and outcome. It is for groups that need to reopen what actually happened after the board has been cleared—or after a game leaves their collection.
+Record one boardgame session in this browser.
 
-The app deliberately does not fetch rule text, connect to BoardGameGeek, automate scoring, or act as a campaign manager. Notes and compressed photos live in IndexedDB on the current device. Users control Markdown, print/PDF, and full JSON backup exports.
+For game groups who need to reopen a play after the board is cleared.
 
-Live: <https://boardgame-session-notes.sociobot.in>
+## What it records
 
-## Features
+- Players, setup notes, house rules, events, scores, and an outcome
+- A text receipt, a printable receipt, and a backup file
+- Session notes that reopen offline after the first visit
 
-- Complete session template with participants, setup, reusable house rules, event timeline, scores, and outcome
-- Local auto-save and offline reopen through an installable PWA
-- Markdown receipt and browser print/save-to-PDF receipt for each session
-- Full JSON archive export/import for ownership and device migration
-- Free archive for three full sessions; $12 one-time Sociobot license unlock for unlimited notes
-- Responsive 390px mobile layout, keyboard support, visible focus, reduced motion, and no runtime trackers/CDNs
+It does not look up rules, automate scoring, or manage campaigns.
 
-## Run locally
+## Try the sample
+
+Open the [demo](https://boardgame-session-notes.sociobot.in/demo) or add ?demo=1 to the home URL. It opens a filled sample session note in the demo browser database. Reset demo replaces that sample. Start for real deletes the demo database before opening the real archive.
+
+## Run and verify
 
 Requires Node.js 22 or later.
 
-```sh
-npm ci
-npm run dev
-```
+Run: npm ci, npm run dev, npm test, npm run build, and npm run test:e2e.
+The production build is dist/. Browser tests use the production preview so they also verify the service worker.
 
-Vite prints the local development URL. The PWA service worker is verified against the production preview rather than dev mode.
+## Deploy
 
-## Test and build
+Deploy dist/ as a static site. staticwebapp.config.json supplies the route fallback, 404 page, security headers, manifest MIME type, and immutable hashed-asset policy.
 
-```sh
-npm test
-npm run build
-npx playwright install chromium   # first browser-test run only
-npm run test:e2e
-```
-
-The exact production build command is `npm run build`. It creates `dist/index.html` and static fallbacks for `/privacy/` and `/terms/`.
-
-## Configuration and deployment
-
-The app is a static Vite build. Deploy the contents of `dist/` at the site root. The production billing API is used by default; staging can override it at build time:
-
-```sh
-VITE_BILLING_BASE=https://pilot-api.sociobot.in npm run build
-```
-
-The factory registers the `boardgame-session-notes` product and return URL. No payment-provider keys or product IDs belong in this repository.
-
-See [`.factory/brief.json`](.factory/brief.json) for scope, [`.factory/design.md`](.factory/design.md) for the visual system and image provenance, and [`.factory/handoff.md`](.factory/handoff.md) for verification results.
+See [Privacy](https://boardgame-session-notes.sociobot.in/privacy), [Terms](https://boardgame-session-notes.sociobot.in/terms), [the product brief](.factory/brief.json), and [the handoff](.factory/handoff.md).
 
 ## License
 
-MIT. See [`LICENSE`](LICENSE).
+MIT. See [LICENSE](LICENSE).

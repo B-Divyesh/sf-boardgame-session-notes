@@ -59,6 +59,31 @@ export function newSession(title = ''): GameSession {
   };
 }
 
+/** A realistic, deterministic record for the isolated demo database. */
+export function sampleSession(): GameSession {
+  return {
+    id: 'demo-lantern-harbor',
+    title: 'Lantern Harbor',
+    playedAt: '2026-08-22T19:30',
+    location: 'Mina\'s kitchen table',
+    participants: [
+      { id: 'demo-mina', name: 'Mina', score: '42' },
+      { id: 'demo-jo', name: 'Jo', score: '38' },
+      { id: 'demo-sam', name: 'Sam', score: '35' }
+    ],
+    startingState: 'Mina chose orange and started. We used the harbor-market setup from last month.',
+    houseRules: ['Ties go to the player who placed the later marker.'],
+    events: [
+      { id: 'demo-event-1', time: '20:12', kind: 'dispute', note: 'We agreed the lighthouse bonus may be scored after a trade.' },
+      { id: 'demo-event-2', time: '21:05', kind: 'score', note: 'Mina gained 8 points for the completed harbor route.' }
+    ],
+    outcome: 'Mina won by 4 points. Next time, check the lighthouse timing before the first trade.',
+    complete: true,
+    createdAt: '2026-08-22T19:25:00.000Z',
+    updatedAt: '2026-08-22T21:31:00.000Z'
+  };
+}
+
 export function isGameSession(value: unknown): value is GameSession {
   if (!isRecord(value)) return false;
   return typeof value.id === 'string'
