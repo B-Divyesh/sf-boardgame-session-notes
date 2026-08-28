@@ -24,6 +24,20 @@ export type AppBackup = {
   snippets: string[];
 };
 
+const isRecord = (value: unknown): value is Record<string, unknown> => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+
+function isParticipant(value: unknown): value is Participant {
+  return isRecord(value) && typeof value.id === 'string' && typeof value.name === 'string' && typeof value.score === 'string';
+}
+
+function isSessionEvent(value: unknown): value is SessionEvent {
+  return isRecord(value)
+    && typeof value.id === 'string'
+    && typeof value.time === 'string'
+    && typeof value.note === 'string'
+    && (value.kind === 'note' || value.kind === 'dispute' || value.kind === 'score' || value.kind === 'rule');
+}
+
 export const uid = (): string => crypto.randomUUID();
 
 export function newSession(title = ''): GameSession {
@@ -46,7 +60,26 @@ export function newSession(title = ''): GameSession {
 }
 
 export function isGameSession(value: unknown): value is GameSession {
-  if (!value || typeof value !== 'object') return false;
-  const item = value as Partial<GameSession>;
-  return typeof item.id === 'string' && typeof item.title === 'string' && Array.isArray(item.participants) && Array.isArray(item.events) && Array.isArray(item.houseRules) && typeof item.updatedAt === 'string';
+  if (!isRecord(value)) return false;
+  return typeof value.id === 'string'
+    && typeof value.title === 'string'
+    && typeof value.playedAt === 'string'
+    && typeof value.location === 'string'
+    && Array.isArray(value.participants) && value.participants.every(isParticipant)
+    && typeof value.startingState === 'string'
+    && (value.photo === undefined || typeof value.photo === 'string')
+    && Array.isArray(value.houseRules) && value.houseRules.every((rule) => typeof rule === 'string')
+    && Array.isArray(value.events) && value.events.every(isSessionEvent)
+    && typeof value.outcome === 'string'
+    && typeof value.complete === 'boolean'
+    && typeof value.createdAt === 'string'
+    && typeof value.updatedAt === 'string';
+}
+
+export function isAppBackup(value: unknown): value is AppBackup {
+  if (!isRecord(value)) return false;
+  return value.version === 1
+    && typeof value.exportedAt === 'string'
+    && Array.isArray(value.sessions) && value.sessions.every(isGameSession)
+    && Array.isArray(value.snippets) && value.snippets.every((snippet) => typeof snippet === 'string');
 }

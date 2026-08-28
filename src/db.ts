@@ -1,5 +1,5 @@
 import type { AppBackup, GameSession } from './types';
-import { isGameSession } from './types';
+import { isAppBackup, isGameSession } from './types';
 
 const DB_NAME = 'boardgame-session-notes';
 const VERSION = 1;
@@ -60,7 +60,9 @@ export async function putSnippets(snippets: string[]): Promise<void> {
 }
 
 export async function importBackup(backup: AppBackup): Promise<void> {
-  if (backup.version !== 1 || !Array.isArray(backup.sessions) || !backup.sessions.every(isGameSession) || !Array.isArray(backup.snippets)) {
+  // Validate the entire untrusted document before starting a write transaction.
+  // This keeps an invalid import atomic and leaves an existing archive usable.
+  if (!isAppBackup(backup)) {
     throw new Error('This file is not a valid Session Notes backup.');
   }
   const db = await openDatabase();
@@ -71,5 +73,6 @@ export async function importBackup(backup: AppBackup): Promise<void> {
     transaction.objectStore(SETTINGS).put({ key: 'snippets', value: backup.snippets });
     transaction.oncomplete = () => resolve();
     transaction.onerror = () => reject(transaction.error ?? new Error('The backup could not be imported.'));
+    transaction.onabort = () => reject(transaction.error ?? new Error('The backup could not be imported.'));
   });
 }
