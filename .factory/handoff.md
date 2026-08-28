@@ -10,7 +10,7 @@
 
 ## Verification
 
-Fresh clone at commit 4e19c5f766c04881e135dcecad1492d5f2ded412:
+Fresh clone verification began from the repair commit and was repeated after the final build/configuration commit a85efeb:
 
 - npm ci: passed, 0 vulnerabilities.
 - npm test: 7 passed.
@@ -25,9 +25,20 @@ Evidence screenshots:
 - .factory/evidence/home-390.png
 - .factory/evidence/demo-390.png
 - .factory/evidence/404-desktop.png
+- .factory/evidence/live-home-390.png
+- .factory/evidence/live-demo-390.png
+- .factory/evidence/live-404-desktop.png
 
 Initial built payload: 35,657 bytes JavaScript, 19,200 bytes CSS, 29,486 bytes mobile AVIF hero, and 96,236 bytes social preview.
 
 ## Deploy and final live check
 
-Commit and deployment result are added below after the static work-order deploy completes.
+Deployed through /opt/fleet/lib/deploy-static.sh boardgame-session-notes dist. Azure Static Web Apps deployment 04cc0e93-8bd0-47e8-a2ad-12f913c50db9 completed successfully on 2026-08-28.
+
+Cold production checks at https://boardgame-session-notes.sociobot.in:
+
+- Home h1, demo action, demo banner/sample/database, title changes, 404 view, and normal console: passed.
+- Live axe WCAG 2 A/AA scans on home, demo, privacy, terms, and 404: zero serious/critical violations.
+- Home and 404 returned 200; the SPA rendered the designed 404 at an unknown route.
+- CSP includes frame-ancestors only as a response header. The hashed JavaScript returned Cache-Control: public, max-age=31536000, immutable. The manifest returned Content-Type: application/manifest+json.
+- Lighthouse mobile: Performance 98, Accessibility 100, Best Practices 100, SEO 100; LCP 1,220 ms; CLS 0.083.

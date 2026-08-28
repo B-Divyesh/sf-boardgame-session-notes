@@ -45,4 +45,6 @@ Fresh-clone npm ci, npm test, npm run build, npm run test:e2e, and all 11 indivi
 
 ## Live result
 
-Pending static deployment and cold recheck.
+Deployed through the static work order as Azure deployment 04cc0e93-8bd0-47e8-a2ad-12f913c50db9. A cold Chromium check at https://boardgame-session-notes.sociobot.in verified the home h1/action, /demo banner and Lantern Harbor sample, only the demo:boardgame-session-notes database, and the designed unknown-route 404 with no console errors. Live screenshots: live-home-390.png, live-demo-390.png, and live-404-desktop.png.
+
+Live axe scans found zero serious/critical issues on /, /demo, /privacy/, /terms/, and /does-not-exist. Header inspection confirmed CSP/frame-ancestors, immutable hashed JavaScript, and application/manifest+json for the manifest.
