@@ -10,7 +10,7 @@
 
 ## Verification
 
-Fresh clone verification at final commit a8a6c7e861140350b7bb8a6dd60ffa7e041d0568:
+Fresh clone verification at final product commit 977d832:
 
 - npm ci: passed, 0 vulnerabilities.
 - npm test: 7 passed.
@@ -33,7 +33,7 @@ Initial built payload: 35,657 bytes JavaScript, 19,200 bytes CSS, 29,486 bytes m
 
 ## Deploy and final live check
 
-Deployed through /opt/fleet/lib/deploy-static.sh boardgame-session-notes dist. Azure Static Web Apps deployment 04cc0e93-8bd0-47e8-a2ad-12f913c50db9 completed successfully on 2026-08-28.
+Deployed through /opt/fleet/lib/deploy-static.sh boardgame-session-notes dist. Azure Static Web Apps deployment 60d6e5e3-3b7b-4494-8cff-872311b2cf1f completed successfully on 2026-08-28.
 
 Cold production checks at https://boardgame-session-notes.sociobot.in:
 
