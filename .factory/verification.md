@@ -1,8 +1,10 @@
 # Verification report — FAIL
 
-**Work order:** `boardgame-session-notes-verify-1`  
-**Candidate:** `e24d7af10374e0c97fb3fe719a1f9df7ecaf4f15` (`main`)  
-**Production URL:** <https://boardgame-session-notes.sociobot.in>  
+**Work order:** `boardgame-session-notes-verify-1`
+
+**Candidate:** `e24d7af10374e0c97fb3fe719a1f9df7ecaf4f15` (`main`)
+
+**Production URL:** <https://boardgame-session-notes.sociobot.in>
 **Verified:** 2026-08-28 UTC
 
 ## Verdict
