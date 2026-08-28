@@ -41,7 +41,7 @@ The malformed-import recovery and desktop contrast fixes were already present an
 
 ## Local result
 
-Fresh-clone npm ci, npm test, npm run build, npm run test:e2e, and all 11 individual claim commands passed. Browser screenshots were reviewed at home-390.png, demo-390.png, and 404-desktop.png.
+Fresh-clone npm ci, npm test, npm run build, npm run test:e2e, and all 11 individual claim commands passed at final commit a8a6c7e861140350b7bb8a6dd60ffa7e041d0568. Browser screenshots were reviewed at home-390.png, demo-390.png, and 404-desktop.png.
 
 ## Live result
 

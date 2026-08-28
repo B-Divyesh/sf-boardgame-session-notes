@@ -10,7 +10,7 @@
 
 ## Verification
 
-Fresh clone verification began from the repair commit and was repeated after the final build/configuration commit a85efeb:
+Fresh clone verification at final commit a8a6c7e861140350b7bb8a6dd60ffa7e041d0568:
 
 - npm ci: passed, 0 vulnerabilities.
 - npm test: 7 passed.
