@@ -1,65 +1,51 @@
-# Boardgame Session Notes — verification handoff
+# Boardgame Session Notes — repair handoff
 
-## Verification status: FAIL
+## Release status: repaired and deployed
 
-Candidate `e24d7af10374e0c97fb3fe719a1f9df7ecaf4f15` was independently verified on 2026-08-28 against <https://boardgame-session-notes.sociobot.in>. The live assets byte-match the candidate, so this is not a deployment-only failure.
+Repair commit: `a43f0f86bbf07c3b233217815a7d0c997075998e` (`main`), pushed to `origin/main` and deployed as the existing static PWA at <https://boardgame-session-notes.sociobot.in> on 2026-08-28 UTC. The verifier report in [`.factory/verification.md`](verification.md) remains the historical FAIL report for candidate `e24d7af`; the two release blockers are addressed below.
 
-Do **not** release: (1) a structurally malformed but accepted JSON backup persists and then causes the next application load to show `Cannot read properties of undefined (reading 'replace')` / “Local storage unavailable”, leaving the archive inaccessible with no UI recovery; (2) fresh desktop editor axe finds a serious WCAG AA contrast violation for the five visible section indices (`#7c817d` on `#f5f0e5`, 3.49:1). Full evidence, passed checks, response-policy observations, and remediation are in [`.factory/verification.md`](verification.md).
+## Repairs
 
-## Verification commands and results
+1. **Malformed backup recovery:** `isGameSession` now validates every required scalar and every nested participant, event, house rule, optional photo, and event kind. `isAppBackup` additionally validates the backup envelope, export timestamp, and string-only snippets. `importBackup` performs that complete validation before it opens an IndexedDB write transaction, so an invalid file cannot partially alter sessions or snippets. On startup, the same strict session guard filters a legacy corrupt record rather than allowing it to crash archive rendering; the archive and Data tools remain available to import a corrected backup.
+2. **Desktop contrast:** section indices use the explicit `--section-index: #59635f` token on paper (`#f5f0e5`), a 5.7:1 contrast ratio. This replaces `#7c817d` at 3.49:1.
+3. **Regression coverage and deterministic browser tooling:** added a fake-IndexedDB atomic-import test, a UI import/reload preservation test using the verifier's malformed nested participant, and desktop Playwright alongside the existing 390px mobile project. Playwright is pinned to `1.58.2`, matching the factory-installed Chromium.
 
-```sh
-npm ci
-npm test             # 5/5 passed
-npm run build        # passed; dist/ produced
-npm run test:e2e     # 3/3 passed after matching Chromium installation
-```
+## Verification evidence
 
-Independent production checks passed for normal end-to-end capture/export/reopen, desktop and 390px layout, keyboard skip link/focus, reduced motion, local-only unlicensed requests, service-worker offline reload, update toast, exact live artifact hashes, and Lighthouse (97 performance / 100 accessibility / 100 best practices / 100 SEO on the homepage). These passes do not override the two blockers.
-
-## What must happen next
-
-Validate nested backup data before database writes and retain a usable recovery path; correct the desktop contrast and add desktop axe coverage; then run the complete verification report again on a new candidate/deploy.
-
----
-
-# Original build handoff (superseded by FAIL verification)
-
-## What shipped
-
-- Complete local-first session notebook for game title/date/location, participants, pre-play notes and compressed photo, reusable house rules, timestamped events/disputes/score changes, final scores, outcome, and complete/in-progress state.
-- IndexedDB persistence with visible auto-save status; archive search, specific delete confirmation, and an 8-second undo.
-- User-controlled Markdown receipt, printable/save-to-PDF receipt (including the setup photo), plus complete versioned JSON backup and restore.
-- Installable PWA manifest and icons, versioned app-shell service worker, build-generated hashed asset precache, navigation fallback, offline status, and update notification.
-- Free tier with three complete saved sessions. The $12 one-time unlock uses only the Sociobot billing checkout and license verification contract, supports return-token capture and paste-to-restore, caches verification for 24 hours, and never blocks first paint. Existing notes and all export/accessibility features remain ungated.
-- `/privacy/` and `/terms/` static entry points, responsive 390px interface, keyboard/focus treatment, reduced-motion fallback, empty/loading/error/offline states, and original product-specific visual system.
-
-## Visual assets
-
-The generative table-map hero was generated with `/opt/fleet/lib/gen-image.sh` using the factory image deployment, visually checked for text/brand/copyright artifacts, and optimized to 29 KB AVIF / 41 KB mobile WebP / 231 KB large WebP. Source PNG and prompt sidecars are in `assets/src/`; complete provenance and the visual system are in `.factory/design.md`.
-
-## Run and verify
+Executed from a clean dependency install:
 
 ```sh
-npm ci
-npm test
-npm run build
-npm run test:e2e
+npm ci                    # 72 packages; 0 vulnerabilities
+npm test                  # 3 files, 7/7 tests passed
+npm run build             # passed; dist/index.html, privacy/, and terms/ produced
+npm run test:e2e          # 8/8 passed: desktop 1440px and mobile 390 × 844px
 ```
 
-Build output is exactly `dist/`, with `dist/index.html` at its root and static route entry points under `dist/privacy/` and `dist/terms/`.
+The browser suite covers complete local create/edit/finish/reopen flow, serious/critical axe WCAG A/AA checks on home/editor/privacy at both sizes, the malformed-import rejection and subsequent reload with the pre-existing record visible, and a service-worker-controlled offline reload. The unit database test proves the invalid verifier payload rejects before any database change.
 
-Verification on 2026-08-27:
+Additional local browser smoke checks passed:
 
-- Unit tests: 5/5 passed.
-- Playwright mobile (390 × 844): end-to-end create/edit/complete/reopen passed; offline reload passed with `context.setOffline(true)`; homepage, editor, and privacy page had no serious or critical axe WCAG A/AA violations; no console errors in the core journey.
-- Production build: passed. Initial application JS 31.23 KB (11.02 KB gzip); CSS 17.90 KB (5.00 KB gzip); mobile hero AVIF 29 KB.
-- Lighthouse mobile: Performance 99, Accessibility 100, Best Practices 100, SEO 100. LCP 1.6 s, total blocking time 90 ms, CLS 0.003.
-- Manual screenshot review: 1440px desktop and 390px mobile homepage/editor; content stacks intentionally on mobile and no horizontal clipping was observed.
+- Desktop and 390px: first Tab focuses the visible skip link; Enter transfers focus to `main`; no horizontal overflow; no console/page errors.
+- Normal unlicensed capture made same-origin-only requests. No session title, participants, events, or scores were sent off-device.
+- The computed desktop section-index color is `rgb(89, 99, 95)` (`#59635f`).
+- A local service-worker update was simulated by changing only the cache version, calling `registration.update()`, and observing `A new app version is ready.`
+- Build output: initial JS 32,007 bytes (11.18 KB gzip); CSS 17,923 bytes (5.00 KB gzip); all are within the static-PWA budget.
 
-## Known gaps and next steps
+Deployment used the work order configuration directly:
 
-- The factory must register the product/return URL with Sociobot billing before purchases can complete. `VITE_BILLING_BASE` can point staging builds at `https://pilot-api.sociobot.in`; production defaults to `https://api.sociobot.in`. There are no embedded provider keys or product IDs.
-- PDF delivery uses the browser’s native Print / Save as PDF dialog so no document content is sent to a server.
-- Records are deliberately device-local. The JSON backup is the recovery/migration mechanism; there is no cloud account or sync.
-- Validate the billing return flow once the factory-created test product exists, then perform a final production-domain service-worker smoke test after deployment.
+```sh
+/opt/fleet/lib/deploy-static.sh boardgame-session-notes dist
+```
+
+Azure Static Web Apps deployment `1698966f-eb3e-4951-a746-f6f17c427e1e` succeeded and the custom domain returned HTTPS 200. Live identity checks matched local build hashes exactly:
+
+- `index.html`: `f049258b2fedf22ecda7115e0d0fd1025c526ea7f25687422b962f782eae025b`
+- JS `assets/index-DMzcLn8T.js`: `8e235d4c0736ed167628ed08cd6366645ca9f2f40cad502c060324e884cff97b`
+- CSS `assets/index-Cqxb_NVd.css`: `323f348eee1ca326a64301b3a6f284fabdbad89e60628592d1a2ed768710f03d`
+
+Live desktop and 390px smoke checks loaded the repaired artifact, created and returned to an archive record without console errors or horizontal overflow, and observed only the production origin for normal unlicensed requests. Live response checks confirm HTTPS, HSTS, `Referrer-Policy: strict-origin-when-cross-origin`, and `X-Content-Type-Options: nosniff`.
+
+## Known non-blocking deployment observations
+
+- The hosting platform still serves hashed assets with `Cache-Control: public, must-revalidate, max-age=30`, and the manifest as `application/octet-stream`. The PWA precache provides repeat/offline resilience, but platform response caching/MIME should be tuned by the deployment platform if its policy permits.
+- The app intentionally has no cloud recovery. Data is local IndexedDB; JSON export/import remains the user-controlled recovery and migration path.
