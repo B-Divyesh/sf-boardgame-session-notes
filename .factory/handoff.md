@@ -1,4 +1,29 @@
-# Boardgame Session Notes — build handoff
+# Boardgame Session Notes — verification handoff
+
+## Verification status: FAIL
+
+Candidate `e24d7af10374e0c97fb3fe719a1f9df7ecaf4f15` was independently verified on 2026-08-28 against <https://boardgame-session-notes.sociobot.in>. The live assets byte-match the candidate, so this is not a deployment-only failure.
+
+Do **not** release: (1) a structurally malformed but accepted JSON backup persists and then causes the next application load to show `Cannot read properties of undefined (reading 'replace')` / “Local storage unavailable”, leaving the archive inaccessible with no UI recovery; (2) fresh desktop editor axe finds a serious WCAG AA contrast violation for the five visible section indices (`#7c817d` on `#f5f0e5`, 3.49:1). Full evidence, passed checks, response-policy observations, and remediation are in [`.factory/verification.md`](verification.md).
+
+## Verification commands and results
+
+```sh
+npm ci
+npm test             # 5/5 passed
+npm run build        # passed; dist/ produced
+npm run test:e2e     # 3/3 passed after matching Chromium installation
+```
+
+Independent production checks passed for normal end-to-end capture/export/reopen, desktop and 390px layout, keyboard skip link/focus, reduced motion, local-only unlicensed requests, service-worker offline reload, update toast, exact live artifact hashes, and Lighthouse (97 performance / 100 accessibility / 100 best practices / 100 SEO on the homepage). These passes do not override the two blockers.
+
+## What must happen next
+
+Validate nested backup data before database writes and retain a usable recovery path; correct the desktop contrast and add desktop axe coverage; then run the complete verification report again on a new candidate/deploy.
+
+---
+
+# Original build handoff (superseded by FAIL verification)
 
 ## What shipped
 
