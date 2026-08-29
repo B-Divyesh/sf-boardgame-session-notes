@@ -1,1 +1,1 @@
-Record boardgame sessions with setup, rulings, scores, and outcomes you can reopen offline.
+Record setup, rulings, scores, and outcomes for a boardgame session, then reopen it offline.

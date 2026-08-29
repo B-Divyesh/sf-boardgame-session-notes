@@ -121,7 +121,7 @@ label, legend { display: grid; gap: 6px; color: #3f4945; font-size: 14px; font-w
 .explanation li span, .privacy-limits p { color: #d2d9d6; }
 .privacy-limits { padding-top: 32px; padding-bottom: 72px; border-top: 1px solid rgb(245 240 229 / 22%); }
 .privacy-limits > div:last-child { max-width: 560px; }
-.privacy-limits a { color: var(--highlight); text-underline-offset: 4px; }
+.privacy-limits a { display: inline-flex; min-height: 44px; align-items: center; color: var(--highlight); text-underline-offset: 4px; }
 
 .editor-shell { max-width: 1180px; margin: 20px auto 80px; padding: 0 32px; }
 .editor-top { min-height: 64px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; border-bottom: 1px solid rgb(245 240 229 / 25%); }

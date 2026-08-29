@@ -1,4 +1,4 @@
-const CACHE = 'session-notes-shell-v1';
+const CACHE = 'session-notes-shell-v3';
 const CORE = ['/', '/index.html', '/offline.html', '/manifest.webmanifest', '/icons/icon.svg', '/icons/icon-192.png', '/icons/icon-512.png', '/assets/session-map-768.webp', '/assets/session-map-1536.webp'];
 
 self.addEventListener('install', (event) => {

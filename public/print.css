@@ -1,0 +1,54 @@
+@page { margin: 18mm; }
+
+:root {
+  color: #17211f;
+  background: #fffdf8;
+  font: 11pt/1.5 ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+h1,
+h2 {
+  font-family: Georgia, Cambria, "Times New Roman", serif;
+}
+
+header {
+  border-bottom: 4px solid #e15c3a;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: 8px;
+  border-bottom: 1px solid #bbb;
+  text-align: left;
+}
+
+th:last-child,
+td:last-child {
+  text-align: right;
+}
+
+.event {
+  padding-left: 12px;
+  border-left: 3px solid #f2be4b;
+}
+
+img {
+  max-width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+}
+
+@media print {
+  body { padding: 0; }
+}

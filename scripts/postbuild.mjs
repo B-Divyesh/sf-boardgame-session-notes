@@ -19,5 +19,5 @@ const generatedAssets = (await readdir('dist/assets'))
   .map((name) => `/assets/${name}`);
 const swPath = 'dist/sw.js';
 const sw = await readFile(swPath, 'utf8');
-const core = ['/', '/index.html', '/demo', '/demo/', '/404', '/404.html', '/offline.html', '/offline.css', '/manifest.webmanifest', '/icons/icon.svg', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/icon-512-maskable.png', ...generatedAssets];
+const core = ['/', '/index.html', '/demo', '/404', '/404.html', '/offline.html', '/offline.css', '/print.css', '/manifest.webmanifest', '/icons/icon.svg', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/icon-512-maskable.png', ...generatedAssets];
 await writeFile(swPath, sw.replace(/const CORE = \[[^;]+;/, `const CORE = ${JSON.stringify(core)};`));

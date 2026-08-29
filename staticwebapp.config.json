@@ -1,6 +1,6 @@
 {
   "globalHeaders": {
-    "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://api.sociobot.in; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+    "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
     "X-Content-Type-Options": "nosniff",
     "Referrer-Policy": "strict-origin-when-cross-origin",
     "Permissions-Policy": "camera=(self)"
@@ -14,12 +14,35 @@
       "rewrite": "/demo/index.html"
     },
     {
+      "route": "/demo/",
+      "redirect": "/demo",
+      "statusCode": 301
+    },
+    {
+      "route": "/demo/session/*",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/session/*",
+      "rewrite": "/index.html"
+    },
+    {
       "route": "/privacy",
       "rewrite": "/privacy/index.html"
     },
     {
+      "route": "/privacy/",
+      "redirect": "/privacy",
+      "statusCode": 301
+    },
+    {
       "route": "/terms",
       "rewrite": "/terms/index.html"
+    },
+    {
+      "route": "/terms/",
+      "redirect": "/terms",
+      "statusCode": 301
     },
     {
       "route": "/404",

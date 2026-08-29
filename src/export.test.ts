@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createBackup, safeFilename, sessionMarkdown } from './export';
+import { createBackup, receiptHtml, safeFilename, sessionMarkdown } from './export';
 import type { GameSession } from './types';
 
 const sample: GameSession = {
@@ -40,5 +40,12 @@ describe('session receipts', () => {
     expect(backup.version).toBe(1);
     expect(backup.sessions).toHaveLength(1);
     expect(backup.snippets).toEqual(['Ties favor the later player']);
+  });
+
+  it('uses the same-origin print stylesheet without inline styles', () => {
+    const receipt = receiptHtml(sample, 'https://example.test/print.css');
+    expect(receipt).toContain('<link rel="stylesheet" href="https://example.test/print.css">');
+    expect(receipt).not.toContain('<style>');
+    expect(receipt).toContain('<main>');
   });
 });

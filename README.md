@@ -7,8 +7,12 @@ For game groups who need to check what happened after the board is cleared.
 ## What it records
 
 - Players, setup notes, house rules, events, scores, and an outcome
+- A setup photo that stays in this browser and appears in the printable receipt
+- Saved rulings that can be reused in a later session note
 - A text receipt, a printable receipt, and a backup file
 - Session notes that reopen offline after the first visit
+
+Edits are saved in this browser before you leave a session note.
 
 It does not look up rules, calculate scores, or manage campaigns.
 
