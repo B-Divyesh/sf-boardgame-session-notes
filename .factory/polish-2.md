@@ -40,3 +40,5 @@ From clean clone `/tmp/boardgame-session-notes-clean.A1UjkS` at `9f7b233`:
 - `npx playwright test --project=mobile-chromium --workers=1` — 13 passed.
 
 Production cold check: `node scripts/live-check.mjs` passed with no ordinary console errors. Screenshots are [home mobile](evidence/polish-2/live-home-390.png), [demo mobile](evidence/polish-2/live-demo-390.png), and [404 desktop](evidence/polish-2/live-404-1440.png).
+
+`verify-url.sh` also passed against production (HTTP 200, 840 ms, zero console errors, title/lang/main/alt/button checks). The standalone Selenium-based `@axe-core/cli` could not find its Chrome binary in this container; the installed Playwright axe integration ran the same WCAG 2 A/AA checks in both browser projects.

@@ -21,6 +21,7 @@ Clean clone: `/tmp/boardgame-session-notes-clean.A1UjkS` at `9f7b233f6b609b1479b
 - `npx playwright test --project=desktop-chromium --workers=1` — 13 passed.
 - `npx playwright test --project=mobile-chromium --workers=1` — 13 passed.
 - Axe WCAG 2 A/AA is part of the cross-route desktop and mobile Playwright check; both projects had zero serious/critical violations. The shell `@axe-core/cli` could not launch its Selenium Chrome binary in this container, so the repository’s installed Playwright axe integration is the recorded accessibility runner.
+- `VERIFY_NODE_MODULES=/work/repo/node_modules /opt/fleet/lib/verify-url.sh https://boardgame-session-notes.sociobot.in .factory/evidence/verify-url` — passed: HTTP 200, load 840 ms, no console errors, one h1, `lang=en`, `<main>`, no missing image alt text, and no unlabeled buttons.
 - Privacy, offline reload, malformed import, route/status, focus, metadata, console, and 44px target checks are included in the browser and claim suites above.
 
 ## Deployment and live re-check
