@@ -58,6 +58,22 @@ Word counts treat hyphenated terms as one word. Labels and actions are included 
 | Rules added here can be reused in later session notes. | 10 | `@claim:rule-reuse` |
 | Record the ruling or event while it is fresh | 9 | Event prompt |
 | Saved in this browser | 4 | `@claim:navigation-save` |
+| Status: Completed. | 2 | Explicit completion state |
+| Status: In progress. | 3 | Explicit completion state |
+| Reopen session note | 3 | Completed-state action |
+| Mark session note complete | 4 | In-progress action |
+
+## Offline route
+
+| Copy | Words | Purpose / proof |
+|---|---:|---|
+| Offline setup | 2 | Route context |
+| Reconnect once to finish offline setup. | 6 | Recovery heading |
+| Open Boardgame Session Notes while connected. | 6 | Recovery instruction |
+| Your saved session notes will then reopen offline. | 8 | `@claim:offline-reload` |
+| Open session notes | 3 | Result-naming recovery action |
+| Record one boardgame session in this browser. | 7 | Footer description |
+| Built by Param Factory | 4 | Product credit |
 
 ## Backup dialog and footer
 
@@ -72,6 +88,12 @@ Word counts treat hyphenated terms as one word. Labels and actions are included 
 | Record one boardgame session in this browser. | 7 | Footer description |
 | Built by Param Factory | 4 | Product credit |
 | Generated illustration; source details in the design notes. | 8 | `@claim:art-provenance` |
+
+## Catalog
+
+| Copy | Words | Purpose / proof |
+|---|---:|---|
+| Record setup, rulings, scores, and outcomes for one boardgame session, then reopen the note offline. | 15 | Verb-first catalog description; `@claim:session-template`, `@claim:offline-reload` |
 
 ## Terminology
 

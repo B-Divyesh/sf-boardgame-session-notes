@@ -134,7 +134,8 @@ label, legend { display: grid; gap: 6px; color: #3f4945; font-size: 14px; font-w
 .note-heading input { min-height: 68px; padding: 0; border: 0; border-bottom: 2px solid var(--ink); background: transparent; font: 500 clamp(34px, 5vw, 58px)/1.08 Georgia, serif; }
 .note-heading h1 { margin: 0 0 24px; font: 500 clamp(30px, 4vw, 48px)/1.08 Georgia, serif; letter-spacing: -.025em; }
 .note-heading input:focus { outline-offset: 7px; }
-.note-heading p:last-child { margin: 7px 0 0; color: var(--muted); font-size: 13px; }
+.note-heading #title-help { margin: 7px 0 0; color: var(--muted); font-size: 13px; }
+.completion-status { margin: 12px 0 0; color: #37433f; font-size: 14px; font-weight: 750; }
 .status-stamp { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 8px 14px; border: 2px solid var(--warning); background: transparent; color: #674611; font-weight: 800; transform: rotate(-1.5deg); cursor: pointer; }
 .status-stamp.complete { border-color: var(--success); color: var(--success); }
 .note-grid { background: var(--paper); color: var(--ink); box-shadow: var(--shadow); }

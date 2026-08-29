@@ -1,1 +1,1 @@
-Record setup, rulings, scores, and outcomes for a boardgame session, then reopen it offline.
+Record setup, rulings, scores, and outcomes for one boardgame session, then reopen the note offline.
