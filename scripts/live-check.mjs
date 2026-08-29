@@ -2,7 +2,8 @@ import { mkdir, readFile } from "node:fs/promises";
 import { chromium } from "playwright";
 
 const origin = process.argv[2] || "https://boardgame-session-notes.sociobot.in";
-const evidence = ".factory/evidence/polish-4";
+const evidence =
+  process.env.LIVE_CHECK_EVIDENCE || ".factory/evidence/polish-4";
 await mkdir(evidence, { recursive: true });
 
 const assert = (condition, message) => {
@@ -118,6 +119,10 @@ assert(
     !names.includes("boardgame-session-notes"),
   "Demo storage is not isolated.",
 );
+await demo.screenshot({
+  path: `${evidence}/live-demo-390.png`,
+  fullPage: true,
+});
 await demo.getByLabel("Game title").fill("Changed demo title");
 await demo.getByLabel("Setup notes").fill("Changed demo setup");
 await demo.getByLabel("Result and next-time notes").fill("Changed demo result");
@@ -186,6 +191,11 @@ assert(
 const reopenButton = demo.getByRole("button", { name: "Reopen session note" });
 await reopenButton.focus();
 await demo.keyboard.press("Enter");
+await demo.waitForFunction(
+  () =>
+    document.activeElement?.id === "toggle-complete" &&
+    document.activeElement.textContent?.includes("Mark session note complete"),
+);
 assert(
   await demo
     .getByRole("button", { name: "Mark session note complete" })
@@ -193,6 +203,11 @@ assert(
   "Completion toggle lost focus after reopening.",
 );
 await demo.keyboard.press("Enter");
+await demo.waitForFunction(
+  () =>
+    document.activeElement?.id === "toggle-complete" &&
+    document.activeElement.textContent?.includes("Reopen session note"),
+);
 assert(
   await demo
     .getByRole("button", { name: "Reopen session note" })
@@ -201,6 +216,10 @@ assert(
 );
 await demo.getByRole("button", { name: "Remove player 3" }).focus();
 await demo.keyboard.press("Enter");
+await demo.waitForFunction(
+  () =>
+    document.activeElement?.getAttribute("aria-label") === "Remove player 2",
+);
 assert(
   await demo
     .getByRole("button", { name: "Remove player 2" })
@@ -209,6 +228,7 @@ assert(
 );
 await demo.getByRole("button", { name: "Remove house rule" }).focus();
 await demo.keyboard.press("Enter");
+await demo.waitForFunction(() => document.activeElement?.id === "rules-title");
 assert(
   await demo
     .getByRole("heading", { name: "House rules" })
@@ -217,6 +237,11 @@ assert(
 );
 await demo.getByRole("button", { name: "Remove timeline event 2" }).focus();
 await demo.keyboard.press("Enter");
+await demo.waitForFunction(
+  () =>
+    document.activeElement?.getAttribute("aria-label") ===
+    "Remove timeline event 1",
+);
 assert(
   await demo
     .getByRole("button", { name: "Remove timeline event 1" })
@@ -238,13 +263,11 @@ const restoreContext = await browser.newContext({
 const restore = await restoreContext.newPage();
 await restore.goto(origin, { waitUntil: "networkidle" });
 await restore.getByRole("button", { name: "Open backup tools" }).click();
-await restore
-  .locator("#import-backup")
-  .setInputFiles({
-    name: "live-backup.json",
-    mimeType: "application/json",
-    buffer: Buffer.from(backupContents),
-  });
+await restore.locator("#import-backup").setInputFiles({
+  name: "live-backup.json",
+  mimeType: "application/json",
+  buffer: Buffer.from(backupContents),
+});
 await restore.getByText("Restored 1 session notes.").waitFor();
 assert(
   (await restore.getByText("Restored 1 session notes.").count()) === 1,
@@ -332,7 +355,7 @@ assert(
   "Vague decisions wording remains.",
 );
 await demo.screenshot({
-  path: `${evidence}/live-demo-390.png`,
+  path: `${evidence}/live-rule-reuse-390.png`,
   fullPage: true,
 });
 

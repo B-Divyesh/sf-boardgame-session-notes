@@ -111,5 +111,6 @@ There was no F-1-22 in the source review.
 - Initial app JavaScript: 36.37 kB raw, 11.79 kB gzip; CSS: 20.07 kB raw, 5.42 kB gzip.
 - Local Lighthouse mobile: Performance 97, Accessibility 100, Best Practices 100, SEO 100; FCP 1.1 s, LCP 1.8 s, TBT 90 ms, CLS 0.085.
 - Local `verify-url.sh`: HTTP 200, one h1, `lang=en`, `<main>`, complete alt/button checks, zero console errors.
-- Post-deploy `live`, `verify-url.sh`, Lighthouse, response-header checks, and cold mobile/desktop screenshots passed against the production URL.
+- Post-deploy `live`, `verify-url.sh`, response-header checks, byte comparisons, and cold mobile/desktop screenshots passed against production.
+- Production Lighthouse mobile: Performance 98, Accessibility 100, Best Practices 100, SEO 100; FCP 1.0 s, LCP 1.1 s, TBT 70 ms, CLS 0.085.
 - No known finding remains.

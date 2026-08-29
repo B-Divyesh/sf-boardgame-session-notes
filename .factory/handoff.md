@@ -40,7 +40,9 @@ Evidence is in `.factory/evidence/polish-4/`. The cumulative finding map is `.fa
 - Production URL: <https://boardgame-session-notes.sociobot.in>.
 - Cold post-deploy verification: `node scripts/live-check.mjs https://boardgame-session-notes.sociobot.in`.
 - The live check covers the first screen, one-click `?demo=1` sample, isolated/reset demo, immediate navigation saves, direct session route, fresh backup restore, print/photo/ruling reuse, editor mutation focus, all sitemap canonicals, the complete offline route, target sizes, 404 status, console state, and live/local JavaScript identity.
-- Production `verify-url.sh` and mobile Lighthouse passed after deployment; live evidence is under `.factory/evidence/polish-4/`.
+- Production `verify-url.sh`, response-header checks, and live/local byte comparisons passed after deployment.
+- Production Lighthouse mobile — Performance 98, Accessibility 100, Best Practices 100, SEO 100; FCP 1.0 s, LCP 1.1 s, TBT 70 ms, CLS 0.085.
+- Live evidence is under `.factory/evidence/polish-4/`.
 
 ## Known gaps and next steps
 
