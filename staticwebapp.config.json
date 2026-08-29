@@ -14,11 +14,6 @@
       "rewrite": "/demo/index.html"
     },
     {
-      "route": "/demo/",
-      "redirect": "/demo",
-      "statusCode": 301
-    },
-    {
       "route": "/demo/session/*",
       "rewrite": "/index.html"
     },
@@ -31,18 +26,8 @@
       "rewrite": "/privacy/index.html"
     },
     {
-      "route": "/privacy/",
-      "redirect": "/privacy",
-      "statusCode": 301
-    },
-    {
       "route": "/terms",
       "rewrite": "/terms/index.html"
-    },
-    {
-      "route": "/terms/",
-      "redirect": "/terms",
-      "statusCode": 301
     },
     {
       "route": "/404",
