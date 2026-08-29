@@ -2,7 +2,7 @@
 
 Record one boardgame session in this browser.
 
-For game groups who need to reopen a play after the board is cleared.
+For game groups who need to check what happened after the board is cleared.
 
 ## What it records
 
@@ -10,22 +10,27 @@ For game groups who need to reopen a play after the board is cleared.
 - A text receipt, a printable receipt, and a backup file
 - Session notes that reopen offline after the first visit
 
-It does not look up rules, automate scoring, or manage campaigns.
+It does not look up rules, calculate scores, or manage campaigns.
 
 ## Try the sample
 
-Open the [demo](https://boardgame-session-notes.sociobot.in/demo) or add ?demo=1 to the home URL. It opens a filled sample session note in the demo browser database. Reset demo replaces that sample. Start for real deletes the demo database before opening the real archive.
+Open the [demo](https://boardgame-session-notes.sociobot.in/demo) or add `?demo=1` to the home URL.
+
+It opens a filled sample without changing your saved session notes.
+
+Reset demo restores the filled sample without changing saved session notes.
+
+Start for real deletes the sample before opening your saved session notes.
 
 ## Run and verify
 
-Requires Node.js 22 or later.
+Run `npm ci`, `npm run dev`, `npm test`, `npm run build`, and `npm run test:e2e`.
 
-Run: npm ci, npm run dev, npm test, npm run build, and npm run test:e2e.
-The production build is dist/. Browser tests use the production preview so they also verify the service worker.
+The production build is `dist/`.
 
 ## Deploy
 
-Deploy dist/ as a static site. staticwebapp.config.json supplies the route fallback, 404 page, security headers, manifest MIME type, and immutable hashed-asset policy.
+Deploy `dist/` as a static site using the included `staticwebapp.config.json`.
 
 See [Privacy](https://boardgame-session-notes.sociobot.in/privacy), [Terms](https://boardgame-session-notes.sociobot.in/terms), [the product brief](.factory/brief.json), and [the handoff](.factory/handoff.md).
 

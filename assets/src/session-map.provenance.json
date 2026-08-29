@@ -1,0 +1,12 @@
+{
+  "generated": "2026-08-27",
+  "model": "factory-image (Azure OpenAI)",
+  "source": {"path": "assets/src/session-map.png", "sha256": "33c57c1274737638d721f9c5415f2fca9408fbf632c4d13e6df908ea161a29ee"},
+  "derivatives": {
+    "public/assets/session-map-768.avif": "46441cb748382139c45af1396f42a51ca8db6197b5cb9e66c1a508d211d5b618",
+    "public/assets/session-map-768.webp": "041c5ead8ec0108f0b489dcc93d76ab833174ba649dd02a129e3c8f21c2820dc",
+    "public/assets/session-map-1536.webp": "023a9f92520f3d24cc4b11097fcebbd87f2ea8507f2e09323aeac92a0ee89488",
+    "public/assets/social-preview.webp": "5c9967425d0e48cc2e4bb871123b90e11a014e84035da81857be2020cd57f129"
+  },
+  "promptSource": "assets/src/session-map.json"
+}
