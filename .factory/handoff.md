@@ -1,44 +1,31 @@
-# Polish 1 handoff
+# Review 2 handoff
 
 ## Delivered
 
-- Real demo at /demo and ?demo=1 with a filled Lantern Harbor session note, an isolated demo:boardgame-session-notes database, Reset demo, and Start for real.
-- Plain-language first screen, consistent session-note terminology, 11 tested claims, routes for demo, privacy, terms, and a product-styled 404.
-- Route titles, descriptions, canonical/OG/Twitter metadata, navigation, footer build information, service-worker precache, host response policy, and a corrected 512px maskable icon.
-- A 1200 × 630 social preview derived from the recorded original illustration.
-- The dead checkout action is not rendered while the configured product checkout returns no usable route. License restore remains available for a valid existing license; this prevents a dead link.
+- Added `.factory/review-2.md` with the required adversarial cold-read, full landing/README copy audit, one-click demo and storage-isolation exercise, all-claims run, historical finding audit, structure/accessibility checks, missed-leverage assessment, and FAIL verdict.
+- No product code, deployment configuration, assets, tests, or runtime documentation were changed.
 
-## Verification
+## Verification performed
 
-Fresh clone verification at final product commit 977d832:
+- Clean worktree at `2f673bf7bd31c249c5046e00e2658f170b7269ec`; `npm ci` completed with 0 vulnerabilities.
+- `npm test`: 7 passed.
+- `npm run build`: passed and produced `dist/`.
+- `npm run test:e2e`: 24 passed across desktop and 390px mobile projects.
+- Every one of the 11 commands in `.factory/claims.json` was run separately: 22/22 browser executions passed mechanically.
+- Live cold loads at 390 × 844 and 1440 × 900, demo reset/exit with a real-data sentinel, offline reload, request logging, route metadata, back/focus, link crawl, headers, touch sizes, live axe, and the worker URL verifier were checked.
+- Local build and production hashes match for HTML, JS, CSS, service worker, manifest, robots, and sitemap.
 
-- npm ci: passed, 0 vulnerabilities.
-- npm test: 7 passed.
-- npm run build: passed; dist includes index, demo, privacy, terms, 404, service worker, manifest, sitemap, and staticwebapp.config.json.
-- npm run test:e2e: 24 passed across 1440px desktop and 390px mobile.
-- Every command in .factory/claims.json: passed individually (11 commands, each in both browser projects).
-- Playwright axe scans: zero serious or critical violations on home, demo, privacy, terms, and 404.
-- The browser suite covers keyboard focus, mobile width, real route titles/canonical metadata, demo isolation, backup merge, request privacy, offline reload, text and print exports, and no-console normal flows.
+## Verdict and known gaps
 
-Evidence screenshots:
+**FAIL.** The review records 14 findings. Blocking issues include `/demo/` rendering the 404, `/offline.html` violating CSP, incomplete historical claim tests and license proof, regressed plain wording, and a stale build id. High findings cover other unlisted privacy/reset/README claims, incomplete landing structure and paid-state explanation, undersized mobile targets, and soft-404 response status.
 
-- .factory/evidence/home-390.png
-- .factory/evidence/demo-390.png
-- .factory/evidence/404-desktop.png
-- .factory/evidence/live-home-390.png
-- .factory/evidence/live-demo-390.png
-- .factory/evidence/live-404-desktop.png
+## How to reproduce the main blockers
 
-Initial built payload: 35,657 bytes JavaScript, 19,200 bytes CSS, 29,486 bytes mobile AVIF hero, and 96,236 bytes social preview.
+1. Open `https://boardgame-session-notes.sociobot.in/demo/`; it renders the page-not-found view instead of the sample.
+2. Open `https://boardgame-session-notes.sociobot.in/offline.html` with the console visible; CSP blocks its inline style.
+3. At a 390px viewport, inspect the Demo/Privacy/Terms links and demo-banner/receipt controls; their hit boxes are below 44px.
+4. Request `https://boardgame-session-notes.sociobot.in/does-not-exist`; the response status is 200 despite the missing-page UI.
 
-## Deploy and final live check
+## Next step
 
-Deployed through /opt/fleet/lib/deploy-static.sh boardgame-session-notes dist. Azure Static Web Apps deployment 60d6e5e3-3b7b-4494-8cff-872311b2cf1f completed successfully on 2026-08-28.
-
-Cold production checks at https://boardgame-session-notes.sociobot.in:
-
-- Home h1, demo action, demo banner/sample/database, title changes, 404 view, and normal console: passed.
-- Live axe WCAG 2 A/AA scans on home, demo, privacy, terms, and 404: zero serious/critical violations.
-- Home and 404 returned 200; the SPA rendered the designed 404 at an unknown route.
-- CSP includes frame-ancestors only as a response header. The hashed JavaScript returned Cache-Control: public, max-age=31536000, immutable. The manifest returned Content-Type: application/manifest+json.
-- Lighthouse mobile: Performance 98, Accessibility 100, Best Practices 100, SEO 100; LCP 1,220 ms; CLS 0.083.
+Repair every finding in `.factory/review-2.md`, add the specified claim and route/accessibility coverage, deploy the resulting candidate, and run a new full adversarial review rather than a diff-only check.
