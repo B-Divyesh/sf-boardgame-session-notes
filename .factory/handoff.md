@@ -1,31 +1,42 @@
-# Review 2 handoff
+# Polish 2 handoff
 
 ## Delivered
 
-- Added `.factory/review-2.md` with the required adversarial cold-read, full landing/README copy audit, one-click demo and storage-isolation exercise, all-claims run, historical finding audit, structure/accessibility checks, missed-leverage assessment, and FAIL verdict.
-- No product code, deployment configuration, assets, tests, or runtime documentation were changed.
+Repair commit [`9f7b233`](https://github.com/B-Divyesh/sf-boardgame-session-notes/commit/9f7b233f6b609b1479b8c2365bf82b4a79e3d35d) closes every item in `.factory/review-1.md`, `.factory/review-2.md`, `.factory/polish-1.md`, `verification.md`, and `verification-2.md`.
 
-## Verification performed
+- Demo accepts `/demo`, `/demo/`, and `?demo=1`, seeds a separate IndexedDB namespace, shows Reset demo and Start for real, and preserves saved session notes.
+- The landing now has a plain first screen, a three-step explanation, and a privacy/limits section. The incomplete paid/license interface was removed because no purchasable Sociobot state is available.
+- Every public reliance statement has a named observable claim test. The provenance claim now verifies recorded source/prompt/derivative hashes.
+- The offline page uses external same-origin CSS under CSP. Unknown URLs return HTTP 404 with the product-styled missing-page view.
+- Mobile navigation, demo controls, footer links, and receipt controls have 44px targets. Build IDs are injected from the actual git revision at build time.
 
-- Clean worktree at `2f673bf7bd31c249c5046e00e2658f170b7269ec`; `npm ci` completed with 0 vulnerabilities.
-- `npm test`: 7 passed.
-- `npm run build`: passed and produced `dist/`.
-- `npm run test:e2e`: 24 passed across desktop and 390px mobile projects.
-- Every one of the 11 commands in `.factory/claims.json` was run separately: 22/22 browser executions passed mechanically.
-- Live cold loads at 390 × 844 and 1440 × 900, demo reset/exit with a real-data sentinel, offline reload, request logging, route metadata, back/focus, link crawl, headers, touch sizes, live axe, and the worker URL verifier were checked.
-- Local build and production hashes match for HTML, JS, CSS, service worker, manifest, robots, and sitemap.
+## Exact evidence
 
-## Verdict and known gaps
+Clean clone: `/tmp/boardgame-session-notes-clean.A1UjkS` at `9f7b233f6b609b1479b8c2365bf82b4a79e3d35d`.
 
-**FAIL.** The review records 14 findings. Blocking issues include `/demo/` rendering the 404, `/offline.html` violating CSP, incomplete historical claim tests and license proof, regressed plain wording, and a stale build id. High findings cover other unlisted privacy/reset/README claims, incomplete landing structure and paid-state explanation, undersized mobile targets, and soft-404 response status.
+- `npm ci` completed with 0 vulnerabilities.
+- `npm test` — 7 passed.
+- `npm run build` — passed; `dist/` contains the static PWA and emitted build id `9f7b233f6b60`.
+- All 12 exact commands in `.factory/claims.json` ran separately from the clean clone. Each passed in desktop and mobile Chromium: 24 claim executions.
+- `npx playwright test --project=desktop-chromium --workers=1` — 13 passed.
+- `npx playwright test --project=mobile-chromium --workers=1` — 13 passed.
+- Axe WCAG 2 A/AA is part of the cross-route desktop and mobile Playwright check; both projects had zero serious/critical violations. The shell `@axe-core/cli` could not launch its Selenium Chrome binary in this container, so the repository’s installed Playwright axe integration is the recorded accessibility runner.
+- Privacy, offline reload, malformed import, route/status, focus, metadata, console, and 44px target checks are included in the browser and claim suites above.
 
-## How to reproduce the main blockers
+## Deployment and live re-check
 
-1. Open `https://boardgame-session-notes.sociobot.in/demo/`; it renders the page-not-found view instead of the sample.
-2. Open `https://boardgame-session-notes.sociobot.in/offline.html` with the console visible; CSP blocks its inline style.
-3. At a 390px viewport, inspect the Demo/Privacy/Terms links and demo-banner/receipt controls; their hit boxes are below 44px.
-4. Request `https://boardgame-session-notes.sociobot.in/does-not-exist`; the response status is 200 despite the missing-page UI.
+Deployed through `/opt/fleet/lib/deploy-static.sh boardgame-session-notes dist` as Azure Static Web Apps deployment `4d7f5a5a-418c-4b51-b2c8-f66ad0b9ef16`.
 
-## Next step
+`node scripts/live-check.mjs` cold-checked <https://boardgame-session-notes.sociobot.in> after deployment:
 
-Repair every finding in `.factory/review-2.md`, add the specified claim and route/accessibility coverage, deploy the resulting candidate, and run a new full adversarial review rather than a diff-only check.
+- home returned 200 with the required h1 and demo action;
+- `/demo/` rendered Lantern Harbor with the demo banner; reset restored the seed and Start for real preserved a saved sentinel;
+- `/does-not-exist` returned 404 and showed “Page not found”;
+- `/offline.html`, `/privacy/`, `/terms/`, and `?demo=1` loaded with one h1 and no ordinary console errors;
+- live footer build id is `9f7b233f6b60`.
+
+Live screenshots: [home, 390px](evidence/polish-2/live-home-390.png), [demo, 390px](evidence/polish-2/live-demo-390.png), and [404, 1440px](evidence/polish-2/live-404-1440.png).
+
+## Known gaps and next steps
+
+None for the released local-first product. Paid purchase is deliberately not shown until the factory registers a working Sociobot checkout and a fixture-backed billing test can cover it.
