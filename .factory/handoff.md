@@ -1,49 +1,28 @@
-# Polish 4 handoff
+# Review 5 handoff
 
 ## Result
 
-Perfection-loop round 4 is complete. Every finding in reviews 1–4 and both earlier verification reports is closed. No known product, copy, claim, demo, privacy, routing, metadata, mobile, accessibility, offline, or deployment gap remains.
+Adversarial first-read review 5 is complete with **PASS** and zero findings. No product code was modified.
 
-The product remains a static, local-first Vite PWA with its original generative table-geometry visual identity.
+The review is recorded in `.factory/review-5.md`. It includes the cold mobile/desktop read, complete landing/README copy audit, all 15 claim results, demo and privacy evidence, structural/accessibility checks, missed-leverage decision, and a finding-by-finding recheck of every earlier review and verification issue.
 
-## Changes in this round
+## Verification
 
-- Editor rerenders keep keyboard focus on the replacement control or the affected section heading.
-- The completion action says what pressing it does and shows a separate visible state.
-- `/offline.html` now carries full description/canonical/social/icon metadata and the shared product header, legal navigation, footer, credit, and build id.
-- The offline recovery action now says **Open session notes**.
-- Desktop and mobile browser coverage now exercises every rerendering editor action and the complete offline shell.
-- The catalog description is verb-first and 101 characters: `Record setup, rulings, scores, and outcomes for one boardgame session, then reopen the note offline.`
-- `.factory/copy-audit.md` and `.factory/polish-4.md` record the new wording and finding-by-finding evidence.
+Clean clone: `/tmp/boardgame-session-notes-review5.cMjXBY` at `384e27462bfa8655fe345d69aaf23a55f49b777c`.
 
-## Exact verification
-
-Clean clone: `/tmp/boardgame-session-notes-polish4.een7tV` at repair commit `d2d5159bf97a12ae16f639751263bdf19bb9205c`.
-
-- `npm ci` — passed; 72 packages audited, 0 vulnerabilities.
+- `npm ci` — passed, zero vulnerabilities.
 - `npm test` — 8/8 passed.
-- `npm run build` — passed and produced `dist/index.html`.
-- `npm run test:e2e` — 36/36 passed across desktop Chromium and 390 × 844 mobile Chromium.
-- Every literal `.factory/claims.json` command ran independently — 15/15 commands and 30/30 desktop/mobile executions passed.
-- Playwright axe scans found no serious or critical WCAG 2 A/AA issues on home, demo, editor, legal, 404, and offline views.
-- Mobile checks found no horizontal overflow and no visible interactive target below 44 × 44 CSS pixels.
-- Initial JavaScript is 36.37 kB raw / 11.79 kB gzip. Initial CSS is 20.07 kB raw / 5.42 kB gzip.
-- Local Lighthouse mobile — Performance 97, Accessibility 100, Best Practices 100, SEO 100; FCP 1.1 s, LCP 1.8 s, TBT 90 ms, CLS 0.085.
-- Local `/opt/fleet/lib/verify-url.sh` — HTTP 200, one h1, `lang=en`, `<main>`, complete alt/button checks, and zero console errors.
+- `npm run build` — passed; `dist/index.html` produced.
+- `npm run test:e2e` — 36/36 passed across desktop and 390 × 844 mobile Chromium.
+- Every literal `.factory/claims.json` command — 15/15 passed, 30/30 browser executions.
+- `LIVE_CHECK_EVIDENCE=/tmp/review5-live-evidence-2 node scripts/live-check.mjs https://boardgame-session-notes.sociobot.in` — passed, including live/build JavaScript identity and zero ordinary console errors.
+- `/opt/fleet/lib/verify-url.sh https://boardgame-session-notes.sociobot.in <temp-dir>` — passed.
+- Independent live axe scan — zero WCAG 2 A/AA violations on home, demo, Privacy, Terms, offline, and 404 in mobile and desktop contexts.
+- Live demo request log — same-origin GET requests only; no entered note content in a request; only the `demo:boardgame-session-notes` database existed.
+- Live route/link/metadata crawl — all valid rendered links returned 200; unknown URL returned the designed HTTP 404; sitemap canonicals agreed.
 
-Evidence is in `.factory/evidence/polish-4/`. The cumulative finding map is `.factory/polish-4.md`.
-
-## Deployment and live verification
-
-- Build command: `npm ci && npm test && npm run build`.
-- Deploy command: `/opt/fleet/lib/deploy-static.sh boardgame-session-notes dist`.
-- Production URL: <https://boardgame-session-notes.sociobot.in>.
-- Cold post-deploy verification: `node scripts/live-check.mjs https://boardgame-session-notes.sociobot.in`.
-- The live check covers the first screen, one-click `?demo=1` sample, isolated/reset demo, immediate navigation saves, direct session route, fresh backup restore, print/photo/ruling reuse, editor mutation focus, all sitemap canonicals, the complete offline route, target sizes, 404 status, console state, and live/local JavaScript identity.
-- Production `verify-url.sh`, response-header checks, and live/local byte comparisons passed after deployment.
-- Production Lighthouse mobile — Performance 98, Accessibility 100, Best Practices 100, SEO 100; FCP 1.0 s, LCP 1.1 s, TBT 70 ms, CLS 0.085.
-- Live evidence is under `.factory/evidence/polish-4/`.
+Temporary screenshots and reports are under `/tmp/review5-live-evidence-2`, `/tmp/review5-live-evidence`, and `/tmp/review5-verify.NFH4ci`; they are intentionally not committed.
 
 ## Known gaps and next steps
 
-None.
+None found. No deployment was requested or performed.
