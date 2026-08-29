@@ -1,33 +1,47 @@
-# Review 4 handoff
+# Polish 4 handoff
 
 ## Result
 
-Adversarial first-read review 4 is complete. The verdict is **FAIL** with two blocking findings and two minor findings. No product code was changed.
+Perfection-loop round 4 is complete. Every finding in reviews 1–4 and both earlier verification reports is closed. No known product, copy, claim, demo, privacy, routing, metadata, mobile, accessibility, offline, or deployment gap remains.
 
-The first screen, one-click demo, sandbox isolation, all listed claims, the main route structure, live privacy behavior, and the distinct visual system pass. The remaining blockers are keyboard focus loss after editor mutations and the standalone offline route's missing metadata and shared header/footer.
+The product remains a static, local-first Vite PWA with its original generative table-geometry visual identity.
 
-See `.factory/review-4.md` for the complete copy audit, claim results, historical finding-by-finding verification, evidence, and concrete fixes.
+## Changes in this round
 
-## Verification performed
+- Editor rerenders keep keyboard focus on the replacement control or the affected section heading.
+- The completion action says what pressing it does and shows a separate visible state.
+- `/offline.html` now carries full description/canonical/social/icon metadata and the shared product header, legal navigation, footer, credit, and build id.
+- The offline recovery action now says **Open session notes**.
+- Desktop and mobile browser coverage now exercises every rerendering editor action and the complete offline shell.
+- The catalog description is verb-first and 101 characters: `Record setup, rulings, scores, and outcomes for one boardgame session, then reopen the note offline.`
+- `.factory/copy-audit.md` and `.factory/polish-4.md` record the new wording and finding-by-finding evidence.
 
-- Fresh production Chromium contexts at 390 × 844 and 1440 × 900.
-- Production demo with a real-data sentinel, Reset demo, Start for real, IndexedDB inspection, offline reload, request-content logging, and console logging.
-- Clean clone `/tmp/boardgame-review4.UWVTPX/clone` at `4b88dbc052e9a40eb825c65b5744307bc8f1e7e6`.
-- `npm ci` — passed, 0 vulnerabilities.
+## Exact verification
+
+Clean clone: `/tmp/boardgame-session-notes-polish4.een7tV` at repair commit `d2d5159bf97a12ae16f639751263bdf19bb9205c`.
+
+- `npm ci` — passed; 72 packages audited, 0 vulnerabilities.
 - `npm test` — 8/8 passed.
-- `npm run build` — passed and produced `dist/`; initial JS 35.41 kB, 11.55 kB gzip.
-- `npm run test:e2e` — 34/34 passed across desktop and 390px projects.
-- All 15 literal claim commands — 15/15 commands and 30/30 browser executions passed.
-- `/opt/fleet/lib/verify-url.sh` — passed production with zero console errors.
-- Live link/status/metadata/header crawl and local/live byte comparison — completed.
+- `npm run build` — passed and produced `dist/index.html`.
+- `npm run test:e2e` — 36/36 passed across desktop Chromium and 390 × 844 mobile Chromium.
+- Every literal `.factory/claims.json` command ran independently — 15/15 commands and 30/30 desktop/mobile executions passed.
+- Playwright axe scans found no serious or critical WCAG 2 A/AA issues on home, demo, editor, legal, 404, and offline views.
+- Mobile checks found no horizontal overflow and no visible interactive target below 44 × 44 CSS pixels.
+- Initial JavaScript is 36.37 kB raw / 11.79 kB gzip. Initial CSS is 20.07 kB raw / 5.42 kB gzip.
+- Local Lighthouse mobile — Performance 97, Accessibility 100, Best Practices 100, SEO 100; FCP 1.1 s, LCP 1.8 s, TBT 90 ms, CLS 0.085.
+- Local `/opt/fleet/lib/verify-url.sh` — HTTP 200, one h1, `lang=en`, `<main>`, complete alt/button checks, and zero console errors.
 
-Evidence is in `.factory/evidence/review-4/`.
+Evidence is in `.factory/evidence/polish-4/`. The cumulative finding map is `.factory/polish-4.md`.
 
-## Remaining work
+## Deployment and live verification
 
-- Preserve logical keyboard focus after completion changes and player/ruling/event removal; add post-action focus tests.
-- Rename the completed-state action so it states the result and exposes state consistently.
-- Add description/canonical/social/favicon metadata plus the shared header/footer to `/offline.html`; assert them in route tests.
-- Rename the offline action from **“Try the app again”** to **“Open session notes.”**
+- Build command: `npm ci && npm test && npm run build`.
+- Deploy command: `/opt/fleet/lib/deploy-static.sh boardgame-session-notes dist`.
+- Production URL: <https://boardgame-session-notes.sociobot.in>.
+- Cold post-deploy verification: `node scripts/live-check.mjs https://boardgame-session-notes.sociobot.in`.
+- The live check covers the first screen, one-click `?demo=1` sample, isolated/reset demo, immediate navigation saves, direct session route, fresh backup restore, print/photo/ruling reuse, editor mutation focus, all sitemap canonicals, the complete offline route, target sizes, 404 status, console state, and live/local JavaScript identity.
+- Production `verify-url.sh` and mobile Lighthouse passed after deployment; live evidence is under `.factory/evidence/polish-4/`.
 
-After those repairs, rerun the full suite and every claim command before another review.
+## Known gaps and next steps
+
+None.
